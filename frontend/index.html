@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 内容鉴真推理网关</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo">
+                <div class="logo-icon">🛡</div>
+                <div>
+                    <h1>AI 内容鉴真推理网关</h1>
+                    <p class="subtitle">私有化部署 · 多模型融合 · 高性能推理</p>
+                </div>
+            </div>
+            <div class="header-status" id="statusBar">
+                <span class="status-dot" id="statusDot"></span>
+                <span id="statusText">检测服务状态中...</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- 上传区域 -->
+        <section class="upload-section">
+            <div class="upload-zone" id="uploadZone">
+                <div class="upload-icon">📁</div>
+                <p class="upload-text">拖拽图片到此处，或<span class="upload-link">点击选择文件</span></p>
+                <p class="upload-hint">支持 JPEG / PNG / WEBP，最大 20MB</p>
+                <input type="file" id="fileInput" accept="image/*" hidden>
+            </div>
+        </section>
+
+        <!-- 结果区域 -->
+        <section class="result-section" id="resultSection" style="display:none;">
+            <div class="result-grid">
+                <!-- 左侧：图片预览 -->
+                <div class="preview-panel">
+                    <h3>图片预览</h3>
+                    <div class="preview-wrapper">
+                        <img id="previewImage" alt="preview">
+                    </div>
+                    <div class="image-meta" id="imageMeta"></div>
+                </div>
+
+                <!-- 右侧：检测结果 -->
+                <div class="verdict-panel">
+                    <h3>融合判决</h3>
+                    <div class="verdict-main" id="verdictMain">
+                        <div class="verdict-label" id="verdictLabel">--</div>
+                        <div class="verdict-prob">
+                            <span class="prob-value" id="probValue">--</span>
+                            <span class="prob-unit">% 伪造概率</span>
+                        </div>
+                        <div class="prob-bar">
+                            <div class="prob-fill" id="probFill"></div>
+                        </div>
+                        <div class="verdict-meta">
+                            <span>置信度: <strong id="confidenceValue">--</strong></span>
+                            <span>耗时: <strong id="latencyValue">--</strong> ms</span>
+                            <span id="cacheBadge" class="cache-badge" style="display:none;">缓存命中</span>
+                        </div>
+                    </div>
+
+                    <!-- 多模型分数 -->
+                    <div class="models-panel">
+                        <h4>各模型详细分数</h4>
+                        <div id="modelScores" class="model-scores"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 加载中 -->
+        <div class="loading-overlay" id="loadingOverlay" style="display:none;">
+            <div class="spinner"></div>
+            <p>正在推理中...</p>
+        </div>
+    </main>
+
+    <!-- API 文档链接 -->
+    <footer class="footer">
+        <p>
+            <a href="/docs" target="_blank">API 文档</a> ·
+            <a href="/api/v1/models" target="_blank">已加载模型</a> ·
+            <a href="/health" target="_blank">健康检查</a> ·
+            <a href="/metrics" target="_blank">Prometheus 指标</a>
+        </p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
